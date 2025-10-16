@@ -1,76 +1,95 @@
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Users, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar, Users, TrendingUp, Star } from "lucide-react";
 
 interface PackageCardProps {
   id: string;
   title: string;
-  destination: string;
-  price: number;
-  duration: string;
-  groupSize: string;
-  image: string;
-  rating: number;
+  description: string;
+  imageUrl: string;
+  priceKes: number;
+  durationDays: number;
+  durationNights: number;
   difficulty: string;
+  seatsAvailable: number;
+  rating?: number;
 }
 
 const PackageCard = ({
   id,
   title,
-  destination,
-  price,
-  duration,
-  groupSize,
-  image,
-  rating,
-  difficulty
+  description,
+  imageUrl,
+  priceKes,
+  durationDays,
+  durationNights,
+  difficulty,
+  seatsAvailable,
+  rating = 4.5,
 }: PackageCardProps) => {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("en-KE", {
+      style: "currency",
+      currency: "KES",
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const getDifficultyColor = (diff: string) => {
+    switch (diff.toLowerCase()) {
+      case "easy":
+        return "bg-secondary text-secondary-foreground";
+      case "moderate":
+        return "bg-accent text-accent-foreground";
+      case "challenging":
+        return "bg-destructive text-destructive-foreground";
+      default:
+        return "bg-muted text-muted-foreground";
+    }
+  };
+
   return (
-    <Card className="group overflow-hidden hover:shadow-strong transition-all duration-300">
-      <div className="relative overflow-hidden h-64">
-        <img 
-          src={image} 
+    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
+      <div className="relative h-56 overflow-hidden">
+        <img
+          src={imageUrl || "/placeholder.svg"}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-        <div className="absolute top-4 right-4">
-          <Badge className="bg-accent text-accent-foreground">
-            {difficulty}
-          </Badge>
+        <div className="absolute top-3 right-3 flex items-center gap-1 bg-background/90 backdrop-blur-sm px-2 py-1 rounded-full">
+          <Star className="w-4 h-4 fill-accent text-accent" />
+          <span className="text-sm font-semibold">{rating}</span>
         </div>
-        <div className="absolute bottom-4 left-4">
-          <div className="flex items-center gap-1 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full text-white text-sm">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-            <span className="font-semibold">{rating}</span>
-          </div>
-        </div>
+        <Badge className={`absolute top-3 left-3 ${getDifficultyColor(difficulty)}`}>
+          {difficulty}
+        </Badge>
       </div>
-      <CardContent className="p-6">
-        <div className="flex items-center text-muted-foreground mb-2">
-          <MapPin className="h-4 w-4 mr-1 text-primary" />
-          <span className="text-sm">{destination}</span>
-        </div>
-        <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors">
-          {title}
-        </h3>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-          <div className="flex items-center">
-            <Clock className="h-4 w-4 mr-1" />
-            {duration}
+
+      <CardContent className="p-5">
+        <h3 className="text-xl font-bold text-foreground mb-2 line-clamp-2">{title}</h3>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{description}</p>
+
+        <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+          <div className="flex items-center gap-1">
+            <Calendar className="w-4 h-4 text-primary" />
+            <span>
+              {durationDays}D / {durationNights}N
+            </span>
           </div>
-          <div className="flex items-center">
-            <Users className="h-4 w-4 mr-1" />
-            {groupSize}
+          <div className="flex items-center gap-1">
+            <Users className="w-4 h-4 text-primary" />
+            <span>{seatsAvailable} seats left</span>
           </div>
-        </div>
-        <div className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold text-primary">KES {price.toLocaleString()}</span>
-          <span className="text-muted-foreground">per person</span>
+          <div className="flex items-center gap-1">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span className="font-semibold text-foreground">{formatPrice(priceKes)}</span>
+          </div>
         </div>
       </CardContent>
-      <CardFooter className="p-6 pt-0">
+
+      <CardFooter className="p-5 pt-0">
         <Button asChild className="w-full">
           <Link to={`/packages/${id}`}>View Details</Link>
         </Button>
