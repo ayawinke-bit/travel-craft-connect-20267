@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import PackageCard from "@/components/PackageCard";
 import DestinationCard from "@/components/DestinationCard";
+import Testimonials from "@/components/Testimonials";
+import SpecialOffers from "@/components/SpecialOffers";
+import Newsletter from "@/components/Newsletter";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Shield, Award, Headphones } from "lucide-react";
@@ -178,9 +183,15 @@ const Home = () => {
         </div>
       </section>
 
+      <SpecialOffers />
+
+      <Testimonials />
+
+      <Newsletter />
+
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready for Your Kenya Adventure?</h2>
+          <h2 className="text-4xl font-bold mb-6">Ready for Your East African Adventure?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Book your dream safari today and create memories that will last a lifetime
           </p>
@@ -190,44 +201,8 @@ const Home = () => {
         </div>
       </section>
 
-      <footer className="bg-foreground text-background py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-lg mb-4">Safari Kenya</h3>
-              <p className="text-sm opacity-80">Your trusted partner for unforgettable Kenyan adventures since 2009.</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/packages" className="hover:text-primary transition-colors">Packages</Link></li>
-                <li><Link to="/destinations" className="hover:text-primary transition-colors">Destinations</Link></li>
-                <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-                <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
-                <li><Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link></li>
-                <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Contact Us</h4>
-              <ul className="space-y-2 text-sm opacity-80">
-                <li>+254 700 123 456</li>
-                <li>info@safarike.com</li>
-                <li>Nairobi, Kenya</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-background/20 pt-8 text-center text-sm opacity-80">
-            © 2025 Safari Kenya. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
+      <WhatsAppButton />
     </div>
   );
 };
