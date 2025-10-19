@@ -8,6 +8,7 @@ import Testimonials from "@/components/Testimonials";
 import SpecialOffers from "@/components/SpecialOffers";
 import Newsletter from "@/components/Newsletter";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import TrustBadges from "@/components/TrustBadges";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Shield, Award, Headphones } from "lucide-react";

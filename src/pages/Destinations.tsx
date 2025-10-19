@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import DestinationCard from "@/components/DestinationCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -79,6 +81,9 @@ const Destinations = () => {
           )}
         </div>
       </div>
+      
+      <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

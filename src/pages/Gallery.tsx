@@ -1,27 +1,28 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-// Import gallery images
-import maasaiCulture from "@/assets/gallery/maasai-culture.jpg";
-import elephantsSunset from "@/assets/gallery/elephants-sunset.jpg";
-import africanMarket from "@/assets/gallery/african-market.jpg";
-import lionsSavanna from "@/assets/gallery/lions-savanna.jpg";
-import villageKilimanjaro from "@/assets/gallery/village-kilimanjaro.jpg";
-import giraffesSunset from "@/assets/gallery/giraffes-sunset.jpg";
+// Import gallery images - using Unsplash real photos
+const maasaiCulture = "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800";
+const elephantsSunset = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800";
+const africanMarket = "https://images.unsplash.com/photo-1553531087-88d88ac50fa0?w=800";
+const lionsSavanna = "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800";
+const villageKilimanjaro = "https://images.unsplash.com/photo-1590959651373-a3db0f38a961?w=800";
+const giraffesSunset = "https://images.unsplash.com/photo-1551084483-c3b806e7654b?w=800";
 
-// Import destination images
-import maasaiMara from "@/assets/destinations/maasai-mara.jpg";
-import mountKenya from "@/assets/destinations/mount-kenya.jpg";
-import dianiBeach from "@/assets/destinations/diani-beach.jpg";
-import nairobiCity from "@/assets/destinations/nairobi-city.jpg";
-import serengeti from "@/assets/destinations/serengeti.jpg";
-import zanzibar from "@/assets/destinations/zanzibar.jpg";
-import bwindiForest from "@/assets/destinations/bwindi-forest.jpg";
-import volcanoesRwanda from "@/assets/destinations/volcanoes-rwanda.jpg";
-import simienMountains from "@/assets/destinations/simien-mountains.jpg";
-import victoriaFalls from "@/assets/destinations/victoria-falls.jpg";
+// Import destination images - using Unsplash real photos
+const maasaiMara = "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800";
+const mountKenya = "https://images.unsplash.com/photo-1609198092357-c7a0c4d0e9e0?w=800";
+const dianiBeach = "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=800";
+const nairobiCity = "https://images.unsplash.com/photo-1547970810-dc1e684757a3?w=800";
+const serengeti = "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800";
+const zanzibar = "https://images.unsplash.com/photo-1589182373726-e4f658ab50b0?w=800";
+const bwindiForest = "https://images.unsplash.com/photo-1619198010303-64e69ac3f1c3?w=800";
+const volcanoesRwanda = "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800";
+const simienMountains = "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800";
+const victoriaFalls = "https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -245,6 +246,7 @@ const Gallery = () => {
       )}
 
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };
