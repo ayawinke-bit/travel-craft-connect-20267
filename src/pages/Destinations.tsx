@@ -8,7 +8,7 @@ import DestinationCard from "@/components/DestinationCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-// Import destination images - REAL East African photographs from Unsplash
+// Import destination images - Authentic East African wildlife and landscapes
 import maasaiMaraImg from "@/assets/destinations/maasai-mara-real.jpg";
 import serengetiImg from "@/assets/destinations/serengeti-real.jpg";
 import mountKenyaImg from "@/assets/destinations/mount-kenya-real.jpg";
@@ -25,8 +25,11 @@ import lamuIslandImg from "@/assets/destinations/lamu-island.jpg";
 import kilimanjaroImg from "@/assets/destinations/kilimanjaro.jpg";
 import volcanoesRwandaImg from "@/assets/destinations/volcanoes-rwanda.jpg";
 import simienMountainsImg from "@/assets/destinations/simien-mountains.jpg";
+import lakeNakuruImg from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import tsavoImg from "@/assets/gallery/elephants-real.jpg";
+import hellsGateImg from "@/assets/destinations/mount-kenya-authentic.jpg";
 
-// Map destination titles to images
+// Map destination titles to authentic African wildlife images
 const destinationImages: Record<string, string> = {
   "Maasai Mara National Reserve": maasaiMaraImg,
   "Serengeti National Park": serengetiImg,
@@ -45,9 +48,9 @@ const destinationImages: Record<string, string> = {
   "Mount Kilimanjaro": kilimanjaroImg,
   "Volcanoes National Park": volcanoesRwandaImg,
   "Simien Mountains": simienMountainsImg,
-  "Lake Nakuru National Park": lakeVictoriaImg,
-  "Tsavo National Parks": amboseliImg,
-  "Hell's Gate National Park": mountKenyaImg,
+  "Lake Nakuru National Park": lakeNakuruImg,
+  "Tsavo National Parks": tsavoImg,
+  "Hell's Gate National Park": hellsGateImg,
 };
 
 const Destinations = () => {
