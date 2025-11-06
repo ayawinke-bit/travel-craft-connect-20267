@@ -12,6 +12,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { Plus, Edit, Trash2, Loader2 } from "lucide-react";
+import { z } from "zod";
+
+const packageSchema = z.object({
+  title: z.string().trim().min(3, "Title must be at least 3 characters").max(200, "Title too long"),
+  description: z.string().trim().max(5000, "Description too long"),
+  price_kes: z.number().min(1000, "Price must be at least 1000 KES").max(10000000, "Price too high"),
+  duration_days: z.number().int().min(1, "Must be at least 1 day").max(365, "Cannot exceed 365 days"),
+  duration_nights: z.number().int().min(0, "Cannot be negative").max(364, "Cannot exceed 364 nights"),
+  seats_total: z.number().int().min(1, "Must have at least 1 seat").max(100, "Cannot exceed 100 seats"),
+  difficulty: z.enum(["Easy", "Moderate", "Challenging"]),
+  status: z.enum(["published", "draft"]),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
 
 interface PackageForm {
   title: string;
@@ -110,6 +123,18 @@ const PackagesManager = () => {
   });
 
   const handleImageUpload = async (file: File): Promise<string> => {
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('Invalid file type. Only JPEG, PNG, WebP allowed.');
+    }
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new Error('File too large. Maximum size is 5MB.');
+    }
+
     setUploading(true);
     try {
       const fileExt = file.name.split('.').pop();
@@ -134,24 +159,40 @@ const PackagesManager = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    let imageUrl = formData.image_url;
-    
-    if (imageFile) {
-      try {
-        imageUrl = await handleImageUpload(imageFile);
-      } catch (error: any) {
-        toast.error("Failed to upload image: " + error.message);
+
+    try {
+      // Validate nights < days
+      if (formData.duration_nights >= formData.duration_days) {
+        toast.error("Nights must be less than days");
         return;
       }
-    }
 
-    const dataToSubmit = { ...formData, image_url: imageUrl };
+      // Validate form data
+      const validated = packageSchema.parse(formData);
 
-    if (editingPackage) {
-      updateMutation.mutate({ id: editingPackage.id, data: dataToSubmit });
-    } else {
-      createMutation.mutate(dataToSubmit);
+      let imageUrl = validated.image_url;
+      if (imageFile) {
+        try {
+          imageUrl = await handleImageUpload(imageFile);
+        } catch (error: any) {
+          toast.error(error.message || "Failed to upload image");
+          return;
+        }
+      }
+
+      const dataToSubmit = { ...validated, image_url: imageUrl } as PackageForm;
+
+      if (editingPackage) {
+        updateMutation.mutate({ id: editingPackage.id, data: dataToSubmit });
+      } else {
+        createMutation.mutate(dataToSubmit);
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+        return;
+      }
+      throw error;
     }
   };
 

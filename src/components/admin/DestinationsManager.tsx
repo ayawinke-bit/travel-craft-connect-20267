@@ -12,6 +12,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { Plus, Edit, Trash2, Loader2 } from "lucide-react";
+import { z } from "zod";
+
+const destinationSchema = z.object({
+  title: z.string().trim().min(3, "Title must be at least 3 characters").max(200, "Title too long"),
+  country: z.string().trim().min(2, "Country must be at least 2 characters").max(100, "Country too long"),
+  region: z.string().trim().max(100, "Region too long").optional(),
+  description: z.string().trim().max(5000, "Description too long"),
+  status: z.enum(["published", "draft"]),
+  image_url: z.string().url().optional().or(z.literal("")),
+});
 
 interface DestinationForm {
   title: string;
@@ -101,6 +111,18 @@ const DestinationsManager = () => {
   });
 
   const handleImageUpload = async (file: File): Promise<string> => {
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      throw new Error('Invalid file type. Only JPEG, PNG, WebP allowed.');
+    }
+
+    // Validate file size (5MB max)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      throw new Error('File too large. Maximum size is 5MB.');
+    }
+
     setUploading(true);
     try {
       const fileExt = file.name.split('.').pop();
@@ -125,24 +147,34 @@ const DestinationsManager = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    let imageUrl = formData.image_url;
-    
-    if (imageFile) {
-      try {
-        imageUrl = await handleImageUpload(imageFile);
-      } catch (error: any) {
-        toast.error("Failed to upload image: " + error.message);
+
+    try {
+      // Validate form data
+      const validated = destinationSchema.parse(formData);
+
+      let imageUrl = validated.image_url;
+      if (imageFile) {
+        try {
+          imageUrl = await handleImageUpload(imageFile);
+        } catch (error: any) {
+          toast.error(error.message || "Failed to upload image");
+          return;
+        }
+      }
+
+      const dataToSubmit = { ...validated, image_url: imageUrl } as DestinationForm;
+
+      if (editingDestination) {
+        updateMutation.mutate({ id: editingDestination.id, data: dataToSubmit });
+      } else {
+        createMutation.mutate(dataToSubmit);
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
         return;
       }
-    }
-
-    const dataToSubmit = { ...formData, image_url: imageUrl };
-
-    if (editingDestination) {
-      updateMutation.mutate({ id: editingDestination.id, data: dataToSubmit });
-    } else {
-      createMutation.mutate(dataToSubmit);
+      throw error;
     }
   };
 

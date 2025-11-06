@@ -16,6 +16,8 @@ import { CalendarIcon, Loader2, ArrowLeft, Users, CreditCard } from "lucide-reac
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { bookingSchema } from "@/lib/bookingValidation";
+import { z } from "zod";
 
 const Booking = () => {
   const { id } = useParams();
@@ -79,14 +81,24 @@ const Booking = () => {
     try {
       const totalAmount = packageData.price_kes * numTravelers;
 
+      // Validate booking data
+      const validated = bookingSchema.parse({
+        packageId: id!,
+        numTravelers,
+        totalAmount,
+        travelDate: format(date, "yyyy-MM-dd"),
+        travelerDetails,
+        specialRequests: specialRequests || undefined,
+      });
+
       const { error } = await supabase.from("bookings").insert({
         user_id: user.id,
-        package_id: id,
-        num_travelers: numTravelers,
-        total_amount: totalAmount,
-        travel_date: format(date, "yyyy-MM-dd"),
-        traveler_details: travelerDetails,
-        special_requests: specialRequests || null,
+        package_id: validated.packageId,
+        num_travelers: validated.numTravelers,
+        total_amount: validated.totalAmount,
+        travel_date: validated.travelDate,
+        traveler_details: validated.travelerDetails,
+        special_requests: validated.specialRequests || null,
         booking_status: "pending",
         payment_status: "pending",
       });
@@ -96,8 +108,12 @@ const Booking = () => {
       toast.success("Booking submitted successfully! We'll contact you shortly.");
       navigate("/dashboard");
     } catch (error) {
-      console.error("Booking error:", error);
-      toast.error("Failed to submit booking. Please try again.");
+      if (error instanceof z.ZodError) {
+        toast.error(error.errors[0].message);
+      } else {
+        console.error("Booking error:", error);
+        toast.error("Failed to submit booking. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
