@@ -53,11 +53,12 @@ const PackageCard = ({
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
       <div className="relative h-56 overflow-hidden">
-        <img
-          src={imageUrl || "/placeholder.svg"}
-          alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
+          <img
+            src={imageUrl || "/placeholder.svg"}
+            alt={title}
+            loading="lazy"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
         <div className="absolute top-3 right-3 flex items-center gap-1 bg-background/90 backdrop-blur-sm px-2 py-1 rounded-full">
           <Star className="w-4 h-4 fill-accent text-accent" />
           <span className="text-sm font-semibold">{rating}</span>

@@ -3,20 +3,36 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImageGallery from "@/components/ImageGallery";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, ArrowLeft, Loader2 } from "lucide-react";
 import PackageCard from "@/components/PackageCard";
+import PackageCardSkeleton from "@/components/ui/PackageCardSkeleton";
 
 // Import destination images - REAL East African photographs from Unsplash
 import maasaiMaraImg from "@/assets/destinations/maasai-mara-real.jpg";
+import maasaiMara2 from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import maasaiMara3 from "@/assets/destinations/maasai-mara-authentic.jpg";
 import serengetiImg from "@/assets/destinations/serengeti-real.jpg";
+import serengeti2 from "@/assets/destinations/serengeti-landscape.jpg";
 import mountKenyaImg from "@/assets/destinations/mount-kenya-real.jpg";
+import mountKenya2 from "@/assets/destinations/mount-kenya-authentic.jpg";
 import nairobiImg from "@/assets/destinations/nairobi-real.jpg";
+import nairobi2 from "@/assets/destinations/nairobi-city.jpg";
 import zanzibarImg from "@/assets/destinations/zanzibar-beach-real.jpg";
+import zanzibar2 from "@/assets/destinations/zanzibar-authentic.jpg";
 import bwindiImg from "@/assets/destinations/bwindi-forest.jpg";
+import bwindi2 from "@/assets/destinations/bwindi-authentic.jpg";
 import amboseliImg from "@/assets/destinations/amboseli-real.jpg";
+import amboseli2 from "@/assets/destinations/amboseli-elephants.jpg";
 import victoriaFallsImg from "@/assets/destinations/victoria-falls-real.jpg";
+import victoriaFalls2 from "@/assets/destinations/victoria-falls-view.jpg";
 import dianiBeachImg from "@/assets/destinations/diani-real.jpg";
+import diani2 from "@/assets/destinations/diani-beach.jpg";
+import wildlife1 from "@/assets/gallery/elephants-real.jpg";
+import wildlife2 from "@/assets/gallery/lion-kenya-real.jpg";
+import wildlife3 from "@/assets/gallery/giraffes-sunset.jpg";
 import samburuImg from "@/assets/destinations/samburu-reserve.jpg";
 import lakeVictoriaImg from "@/assets/destinations/lake-victoria.jpg";
 import nileRiverImg from "@/assets/destinations/nile-river.jpg";
@@ -25,7 +41,6 @@ import kilimanjaroImg from "@/assets/destinations/kilimanjaro.jpg";
 import volcanoesRwandaImg from "@/assets/destinations/volcanoes-rwanda.jpg";
 import simienMountainsImg from "@/assets/destinations/simien-mountains.jpg";
 
-// Map destination titles to images
 const destinationImages: Record<string, string> = {
   "Maasai Mara National Reserve": maasaiMaraImg,
   "Serengeti National Park": serengetiImg,
@@ -37,16 +52,43 @@ const destinationImages: Record<string, string> = {
   "Amboseli National Park": amboseliImg,
   "Victoria Falls": victoriaFallsImg,
   "Diani Beach": dianiBeachImg,
-  "Samburu National Reserve": samburuImg,
-  "Lake Victoria": lakeVictoriaImg,
-  "River Nile": nileRiverImg,
-  "Lamu Island": lamuIslandImg,
-  "Mount Kilimanjaro": kilimanjaroImg,
-  "Volcanoes National Park": volcanoesRwandaImg,
-  "Simien Mountains": simienMountainsImg,
-  "Lake Nakuru National Park": lakeVictoriaImg,
-  "Tsavo National Parks": amboseliImg,
-  "Hell's Gate National Park": mountKenyaImg,
+};
+
+const destinationGalleryImages: Record<string, { src: string; alt: string }[]> = {
+  "Maasai Mara National Reserve": [
+    { src: maasaiMara2, alt: "Maasai Mara Wildlife" },
+    { src: maasaiMara3, alt: "Maasai Mara Plains" },
+    { src: wildlife1, alt: "African Elephants" },
+    { src: wildlife2, alt: "Lions" },
+    { src: wildlife3, alt: "Giraffes at Sunset" },
+  ],
+  "Serengeti National Park": [
+    { src: serengeti2, alt: "Serengeti Plains" },
+    { src: wildlife1, alt: "Elephants" },
+    { src: wildlife2, alt: "Lions in Serengeti" },
+  ],
+  "Mount Kenya National Park": [
+    { src: mountKenya2, alt: "Mount Kenya Peak" },
+  ],
+  "Nairobi City": [
+    { src: nairobi2, alt: "Nairobi Skyline" },
+  ],
+  "Zanzibar Archipelago": [
+    { src: zanzibar2, alt: "Stone Town" },
+  ],
+  "Bwindi Impenetrable Forest": [
+    { src: bwindi2, alt: "Bwindi Forest Interior" },
+  ],
+  "Amboseli National Park": [
+    { src: amboseli2, alt: "Amboseli Elephants" },
+    { src: wildlife1, alt: "Elephant Herds" },
+  ],
+  "Victoria Falls": [
+    { src: victoriaFalls2, alt: "Victoria Falls View" },
+  ],
+  "Diani Beach": [
+    { src: diani2, alt: "Diani Beach Coast" },
+  ],
 };
 
 const DestinationDetail = () => {
@@ -84,8 +126,16 @@ const DestinationDetail = () => {
 
   if (destinationLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-4 py-8">
+          <Skeleton className="h-8 w-32 mb-6" />
+          <Skeleton className="h-96 w-full rounded-lg mb-6" />
+          <Skeleton className="h-12 w-3/4 mb-4" />
+          <Skeleton className="h-32 w-full mb-8" />
+          <Skeleton className="h-64 w-full" />
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -108,40 +158,51 @@ const DestinationDetail = () => {
     );
   }
 
+  const mainImage = destinationImages[destination.title] || maasaiMaraImg;
+  const galleryImages = destinationGalleryImages[destination.title] || [];
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Image */}
-      <div className="relative h-[60vh] mt-16">
-        <img 
-          src={destinationImages[destination.title] || maasaiMaraImg} 
-          alt={destination.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/70" />
-        <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8">
-          <Button asChild variant="ghost" className="text-white hover:text-white/80 mb-4">
-            <Link to="/destinations">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Destinations
-            </Link>
-          </Button>
-          <h1 className="text-5xl font-bold text-white mb-4">
+      <div className="container mx-auto px-4 pt-20 sm:pt-24 pb-8">
+        <Button asChild variant="ghost" className="mb-4 hover-scale">
+          <Link to="/destinations">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Destinations
+          </Link>
+        </Button>
+
+        {/* Gallery Section */}
+        <div className="mb-6 sm:mb-8">
+          <ImageGallery 
+            images={galleryImages}
+            mainImage={mainImage}
+            mainAlt={destination.title}
+          />
+        </div>
+
+        {/* Header Info */}
+        <div className="mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             {destination.title}
           </h1>
-          <div className="flex items-center gap-2 text-white text-lg">
-            <MapPin className="h-5 w-5" />
-            <span>
-              {destination.region ? `${destination.region}, ` : ""}
-              {destination.country}
+          <div className="flex items-center gap-2 text-muted-foreground mb-4">
+            <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="text-sm sm:text-base">
+              {destination.region ? `${destination.region}, ${destination.country}` : destination.country}
             </span>
           </div>
+          {destination.description && (
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              {destination.description}
+            </p>
+          )}
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 pb-12">
         {/* Description */}
         <section className="max-w-4xl mb-16">
           <h2 className="text-3xl font-bold mb-6">About This Destination</h2>
@@ -172,8 +233,10 @@ const DestinationDetail = () => {
         <section>
           <h2 className="text-3xl font-bold mb-6">Available Safari Packages</h2>
           {packagesLoading ? (
-            <div className="flex justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
             </div>
           ) : packages && packages.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

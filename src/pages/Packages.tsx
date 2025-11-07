@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import PackageCard from "@/components/PackageCard";
+import PackageCardSkeleton from "@/components/ui/PackageCardSkeleton";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search } from "lucide-react";
@@ -115,8 +116,13 @@ const Packages = () => {
           </div>
 
           {isLoading ? (
-            <div className="text-center py-20">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
+              <PackageCardSkeleton />
             </div>
           ) : filteredPackages && filteredPackages.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

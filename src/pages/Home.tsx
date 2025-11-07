@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PackageCard from "@/components/PackageCard";
 import DestinationCard from "@/components/DestinationCard";
+import PackageCardSkeleton from "@/components/ui/PackageCardSkeleton";
+import DestinationCardSkeleton from "@/components/ui/DestinationCardSkeleton";
 import Testimonials from "@/components/Testimonials";
 import SpecialOffers from "@/components/SpecialOffers";
 import Newsletter from "@/components/Newsletter";
@@ -70,7 +72,7 @@ const packageImages: Record<string, string> = {
 };
 
 const Home = () => {
-  const { data: featuredPackages } = useQuery({
+  const { data: featuredPackages, isLoading: packagesLoading } = useQuery({
     queryKey: ["featured-packages"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -85,7 +87,7 @@ const Home = () => {
     },
   });
 
-  const { data: popularDestinations } = useQuery({
+  const { data: popularDestinations, isLoading: destinationsLoading } = useQuery({
     queryKey: ["popular-destinations"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -109,6 +111,7 @@ const Home = () => {
           <img
             src={heroImage}
             alt="Safari Kenya Hero"
+            loading="eager"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
@@ -182,21 +185,29 @@ const Home = () => {
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-6 md:mb-8">
-            {featuredPackages?.map((pkg) => (
-              <PackageCard
-                key={pkg.id}
-                id={pkg.id}
-                title={pkg.title}
-                description={pkg.description || ""}
-                imageUrl={packageImages[pkg.image_url || ""] || maasaiMaraImg}
-                priceKes={Number(pkg.price_kes)}
-                durationDays={pkg.duration_days}
-                durationNights={pkg.duration_nights}
-                difficulty={pkg.difficulty}
-                seatsAvailable={pkg.seats_available}
-                rating={Number(pkg.rating) || 4.5}
-              />
-            ))}
+            {packagesLoading ? (
+              <>
+                <PackageCardSkeleton />
+                <PackageCardSkeleton />
+                <PackageCardSkeleton />
+              </>
+            ) : (
+              featuredPackages?.map((pkg) => (
+                <PackageCard
+                  key={pkg.id}
+                  id={pkg.id}
+                  title={pkg.title}
+                  description={pkg.description || ""}
+                  imageUrl={packageImages[pkg.image_url || ""] || maasaiMaraImg}
+                  priceKes={Number(pkg.price_kes)}
+                  durationDays={pkg.duration_days}
+                  durationNights={pkg.duration_nights}
+                  difficulty={pkg.difficulty}
+                  seatsAvailable={pkg.seats_available}
+                  rating={Number(pkg.rating) || 4.5}
+                />
+              ))
+            )}
           </div>
 
           <div className="text-center">
@@ -219,17 +230,26 @@ const Home = () => {
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
-            {popularDestinations?.map((dest) => (
-              <DestinationCard
-                key={dest.id}
-                id={dest.id}
-                title={dest.title}
-                country={dest.country}
-                region={dest.region}
-                imageUrl={destinationImages[dest.title] || maasaiMaraImg}
-                description={dest.description}
-              />
-            ))}
+            {destinationsLoading ? (
+              <>
+                <DestinationCardSkeleton />
+                <DestinationCardSkeleton />
+                <DestinationCardSkeleton />
+                <DestinationCardSkeleton />
+              </>
+            ) : (
+              popularDestinations?.map((dest) => (
+                <DestinationCard
+                  key={dest.id}
+                  id={dest.id}
+                  title={dest.title}
+                  country={dest.country}
+                  region={dest.region}
+                  imageUrl={destinationImages[dest.title] || maasaiMaraImg}
+                  description={dest.description}
+                />
+              ))
+            )}
           </div>
 
           <div className="text-center">

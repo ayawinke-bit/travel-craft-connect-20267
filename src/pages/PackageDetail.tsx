@@ -3,19 +3,31 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImageGallery from "@/components/ImageGallery";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, Clock, Users, MapPin, Check, Star, Loader2, ArrowLeft } from "lucide-react";
 
 // Import package images
 import maasaiMaraImg from "@/assets/destinations/maasai-mara-real.jpg";
+import maasaiMara2 from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import maasaiMara3 from "@/assets/destinations/maasai-mara-authentic.jpg";
 import serengetiImg from "@/assets/destinations/serengeti-real.jpg";
+import serengeti2 from "@/assets/destinations/serengeti-landscape.jpg";
 import mountKenyaImg from "@/assets/destinations/mount-kenya-real.jpg";
+import mountKenya2 from "@/assets/destinations/mount-kenya-authentic.jpg";
 import zanzibarImg from "@/assets/destinations/zanzibar-beach-real.jpg";
+import zanzibar2 from "@/assets/destinations/zanzibar-authentic.jpg";
 import amboseliImg from "@/assets/destinations/amboseli-real.jpg";
+import amboseli2 from "@/assets/destinations/amboseli-elephants.jpg";
 import bwindiImg from "@/assets/destinations/bwindi-forest.jpg";
+import bwindi2 from "@/assets/destinations/bwindi-authentic.jpg";
+import wildlife1 from "@/assets/gallery/elephants-real.jpg";
+import wildlife2 from "@/assets/gallery/lion-kenya-real.jpg";
+import wildlife3 from "@/assets/gallery/giraffes-sunset.jpg";
 
-// Map package image identifiers to images
+// Map package image identifiers to images and gallery images
 const packageImages: Record<string, string> = {
   "maasai-mara": maasaiMaraImg,
   "serengeti": serengetiImg,
@@ -23,6 +35,37 @@ const packageImages: Record<string, string> = {
   "zanzibar": zanzibarImg,
   "amboseli": amboseliImg,
   "bwindi": bwindiImg,
+};
+
+const packageGalleryImages: Record<string, { src: string; alt: string }[]> = {
+  "maasai-mara": [
+    { src: maasaiMara2, alt: "Maasai Mara Wildlife" },
+    { src: maasaiMara3, alt: "Maasai Mara Landscape" },
+    { src: wildlife1, alt: "African Elephants" },
+    { src: wildlife2, alt: "Lions in the Wild" },
+    { src: wildlife3, alt: "Giraffes at Sunset" },
+  ],
+  "serengeti": [
+    { src: serengeti2, alt: "Serengeti Plains" },
+    { src: wildlife1, alt: "African Elephants" },
+    { src: wildlife2, alt: "Lions in the Wild" },
+    { src: wildlife3, alt: "Giraffes at Sunset" },
+  ],
+  "mount-kenya": [
+    { src: mountKenya2, alt: "Mount Kenya Peak" },
+    { src: wildlife1, alt: "Mountain Wildlife" },
+  ],
+  "zanzibar": [
+    { src: zanzibar2, alt: "Zanzibar Old Town" },
+  ],
+  "amboseli": [
+    { src: amboseli2, alt: "Amboseli Elephants" },
+    { src: wildlife1, alt: "Elephant Herds" },
+    { src: wildlife3, alt: "Safari Views" },
+  ],
+  "bwindi": [
+    { src: bwindi2, alt: "Bwindi Forest Interior" },
+  ],
 };
 
 const PackageDetail = () => {
@@ -52,8 +95,22 @@ const PackageDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-4 py-8">
+          <Skeleton className="h-8 w-32 mb-6" />
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-6">
+              <Skeleton className="h-96 w-full rounded-lg" />
+              <Skeleton className="h-12 w-3/4" />
+              <Skeleton className="h-32 w-full" />
+            </div>
+            <div className="lg:col-span-1">
+              <Skeleton className="h-[400px] w-full rounded-lg" />
+            </div>
+          </div>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -120,54 +177,61 @@ const PackageDetail = () => {
     ],
   };
 
+  const mainImage = packageImages[displayData.image_url || ""] || maasaiMaraImg;
+  const galleryImages = packageGalleryImages[displayData.image_url || ""] || [];
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Image */}
-      <div className="relative h-[60vh] mt-16">
-        <img 
-          src={packageImages[displayData.image_url || ""] || maasaiMaraImg} 
-          alt={displayData.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/70" />
-        <div className="absolute bottom-0 left-0 right-0 container mx-auto px-4 pb-8">
-          <Button asChild variant="ghost" className="text-white hover:text-white/80 mb-4">
-            <Link to="/packages">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Packages
-            </Link>
-          </Button>
-          <Badge className="bg-accent text-accent-foreground mb-4">
+      <div className="container mx-auto px-4 pt-20 sm:pt-24 pb-8">
+        <Button asChild variant="ghost" className="mb-4 hover-scale">
+          <Link to="/packages">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Packages
+          </Link>
+        </Button>
+
+        {/* Gallery Section */}
+        <div className="mb-6 sm:mb-8">
+          <ImageGallery 
+            images={galleryImages}
+            mainImage={mainImage}
+            mainAlt={displayData.title}
+          />
+        </div>
+
+        {/* Header Info */}
+        <div className="mb-8">
+          <Badge className="bg-accent text-accent-foreground mb-3">
             {displayData.difficulty}
           </Badge>
-          <h1 className="text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             {displayData.title}
           </h1>
-          <div className="flex flex-wrap items-center gap-6 text-white">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-muted-foreground">
             <div className="flex items-center gap-2">
-              <MapPin className="h-5 w-5" />
-              <span>{displayData.destination}</span>
+              <MapPin className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-sm sm:text-base">{displayData.destination}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5" />
-              <span>{displayData.duration}</span>
+              <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-sm sm:text-base">{displayData.duration}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Users className="h-5 w-5" />
-              <span>{displayData.groupSize}</span>
+              <Users className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-sm sm:text-base">{displayData.groupSize}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-              <span>{displayData.rating} ({displayData.reviews} reviews)</span>
+              <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-yellow-400 text-yellow-400" />
+              <span className="text-sm sm:text-base">{displayData.rating} ({displayData.reviews} reviews)</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Details */}
           <div className="lg:col-span-2 space-y-8">

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import DestinationCard from "@/components/DestinationCard";
+import DestinationCardSkeleton from "@/components/ui/DestinationCardSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -102,8 +103,13 @@ const Destinations = () => {
           </div>
 
           {isLoading ? (
-            <div className="text-center py-20">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <DestinationCardSkeleton />
+              <DestinationCardSkeleton />
+              <DestinationCardSkeleton />
+              <DestinationCardSkeleton />
+              <DestinationCardSkeleton />
+              <DestinationCardSkeleton />
             </div>
           ) : filteredDestinations && filteredDestinations.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
