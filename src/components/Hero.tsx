@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-safari.jpg";
 
 const Hero = () => {
   return (
@@ -9,7 +8,7 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        style={{ backgroundImage: `url(/images/hero-safari.jpg)` }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-background" />
       </div>

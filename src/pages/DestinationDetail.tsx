@@ -10,84 +10,53 @@ import { MapPin, ArrowLeft, Loader2 } from "lucide-react";
 import PackageCard from "@/components/PackageCard";
 import PackageCardSkeleton from "@/components/ui/PackageCardSkeleton";
 
-// Import destination images - REAL East African photographs from Unsplash
-import maasaiMaraImg from "@/assets/destinations/maasai-mara-real.jpg";
-import maasaiMara2 from "@/assets/destinations/maasai-mara-wildlife.jpg";
-import maasaiMara3 from "@/assets/destinations/maasai-mara-authentic.jpg";
-import serengetiImg from "@/assets/destinations/serengeti-real.jpg";
-import serengeti2 from "@/assets/destinations/serengeti-landscape.jpg";
-import mountKenyaImg from "@/assets/destinations/mount-kenya-real.jpg";
-import mountKenya2 from "@/assets/destinations/mount-kenya-authentic.jpg";
-import nairobiImg from "@/assets/destinations/nairobi-real.jpg";
-import nairobi2 from "@/assets/destinations/nairobi-city.jpg";
-import zanzibarImg from "@/assets/destinations/zanzibar-beach-real.jpg";
-import zanzibar2 from "@/assets/destinations/zanzibar-authentic.jpg";
-import bwindiImg from "@/assets/destinations/bwindi-forest.jpg";
-import bwindi2 from "@/assets/destinations/bwindi-authentic.jpg";
-import amboseliImg from "@/assets/destinations/amboseli-real.jpg";
-import amboseli2 from "@/assets/destinations/amboseli-elephants.jpg";
-import victoriaFallsImg from "@/assets/destinations/victoria-falls-real.jpg";
-import victoriaFalls2 from "@/assets/destinations/victoria-falls-view.jpg";
-import dianiBeachImg from "@/assets/destinations/diani-real.jpg";
-import diani2 from "@/assets/destinations/diani-beach.jpg";
-import wildlife1 from "@/assets/gallery/elephants-real.jpg";
-import wildlife2 from "@/assets/gallery/lion-kenya-real.jpg";
-import wildlife3 from "@/assets/gallery/giraffes-sunset.jpg";
-import samburuImg from "@/assets/destinations/samburu-reserve.jpg";
-import lakeVictoriaImg from "@/assets/destinations/lake-victoria.jpg";
-import nileRiverImg from "@/assets/destinations/nile-river.jpg";
-import lamuIslandImg from "@/assets/destinations/lamu-island.jpg";
-import kilimanjaroImg from "@/assets/destinations/kilimanjaro.jpg";
-import volcanoesRwandaImg from "@/assets/destinations/volcanoes-rwanda.jpg";
-import simienMountainsImg from "@/assets/destinations/simien-mountains.jpg";
-
 const destinationImages: Record<string, string> = {
-  "Maasai Mara National Reserve": maasaiMaraImg,
-  "Serengeti National Park": serengetiImg,
-  "Mount Kenya National Park": mountKenyaImg,
-  "Mount Kenya": mountKenyaImg,
-  "Nairobi City": nairobiImg,
-  "Zanzibar Archipelago": zanzibarImg,
-  "Bwindi Impenetrable Forest": bwindiImg,
-  "Amboseli National Park": amboseliImg,
-  "Victoria Falls": victoriaFallsImg,
-  "Diani Beach": dianiBeachImg,
+  "Maasai Mara National Reserve": "/images/destinations/maasai-mara-real.jpg",
+  "Serengeti National Park": "/images/destinations/serengeti-real.jpg",
+  "Mount Kenya National Park": "/images/destinations/mount-kenya-real.jpg",
+  "Mount Kenya": "/images/destinations/mount-kenya-real.jpg",
+  "Nairobi City": "/images/destinations/nairobi-real.jpg",
+  "Zanzibar Archipelago": "/images/destinations/zanzibar-beach-real.jpg",
+  "Bwindi Impenetrable Forest": "/images/destinations/bwindi-forest.jpg",
+  "Amboseli National Park": "/images/destinations/amboseli-real.jpg",
+  "Victoria Falls": "/images/destinations/victoria-falls-real.jpg",
+  "Diani Beach": "/images/destinations/diani-real.jpg",
 };
 
 const destinationGalleryImages: Record<string, { src: string; alt: string }[]> = {
   "Maasai Mara National Reserve": [
-    { src: maasaiMara2, alt: "Maasai Mara Wildlife" },
-    { src: maasaiMara3, alt: "Maasai Mara Plains" },
-    { src: wildlife1, alt: "African Elephants" },
-    { src: wildlife2, alt: "Lions" },
-    { src: wildlife3, alt: "Giraffes at Sunset" },
+    { src: "/images/destinations/maasai-mara-wildlife.jpg", alt: "Maasai Mara Wildlife" },
+    { src: "/images/destinations/maasai-mara-authentic.jpg", alt: "Maasai Mara Plains" },
+    { src: "/images/gallery/elephants-real.jpg", alt: "African Elephants" },
+    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions" },
+    { src: "/images/gallery/giraffes-sunset.jpg", alt: "Giraffes at Sunset" },
   ],
   "Serengeti National Park": [
-    { src: serengeti2, alt: "Serengeti Plains" },
-    { src: wildlife1, alt: "Elephants" },
-    { src: wildlife2, alt: "Lions in Serengeti" },
+    { src: "/images/destinations/serengeti-landscape.jpg", alt: "Serengeti Plains" },
+    { src: "/images/gallery/elephants-real.jpg", alt: "Elephants" },
+    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions in Serengeti" },
   ],
   "Mount Kenya National Park": [
-    { src: mountKenya2, alt: "Mount Kenya Peak" },
+    { src: "/images/destinations/mount-kenya-authentic.jpg", alt: "Mount Kenya Peak" },
   ],
   "Nairobi City": [
-    { src: nairobi2, alt: "Nairobi Skyline" },
+    { src: "/images/destinations/nairobi-city.jpg", alt: "Nairobi Skyline" },
   ],
   "Zanzibar Archipelago": [
-    { src: zanzibar2, alt: "Stone Town" },
+    { src: "/images/destinations/zanzibar-authentic.jpg", alt: "Stone Town" },
   ],
   "Bwindi Impenetrable Forest": [
-    { src: bwindi2, alt: "Bwindi Forest Interior" },
+    { src: "/images/destinations/bwindi-authentic.jpg", alt: "Bwindi Forest Interior" },
   ],
   "Amboseli National Park": [
-    { src: amboseli2, alt: "Amboseli Elephants" },
-    { src: wildlife1, alt: "Elephant Herds" },
+    { src: "/images/destinations/amboseli-elephants.jpg", alt: "Amboseli Elephants" },
+    { src: "/images/gallery/elephants-real.jpg", alt: "Elephant Herds" },
   ],
   "Victoria Falls": [
-    { src: victoriaFalls2, alt: "Victoria Falls View" },
+    { src: "/images/destinations/victoria-falls-view.jpg", alt: "Victoria Falls View" },
   ],
   "Diani Beach": [
-    { src: diani2, alt: "Diani Beach Coast" },
+    { src: "/images/destinations/diani-beach.jpg", alt: "Diani Beach Coast" },
   ],
 };
 
@@ -158,7 +127,7 @@ const DestinationDetail = () => {
     );
   }
 
-  const mainImage = destinationImages[destination.title] || maasaiMaraImg;
+  const mainImage = destinationImages[destination.title] || "/images/destinations/maasai-mara-real.jpg";
   const galleryImages = destinationGalleryImages[destination.title] || [];
 
   return (

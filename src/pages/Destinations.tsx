@@ -9,49 +9,28 @@ import DestinationCardSkeleton from "@/components/ui/DestinationCardSkeleton";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-// Import destination images - Authentic East African wildlife and landscapes
-import maasaiMaraImg from "@/assets/destinations/maasai-mara-real.jpg";
-import serengetiImg from "@/assets/destinations/serengeti-real.jpg";
-import mountKenyaImg from "@/assets/destinations/mount-kenya-real.jpg";
-import nairobiImg from "@/assets/destinations/nairobi-real.jpg";
-import zanzibarImg from "@/assets/destinations/zanzibar-beach-real.jpg";
-import bwindiImg from "@/assets/destinations/bwindi-forest.jpg";
-import amboseliImg from "@/assets/destinations/amboseli-real.jpg";
-import victoriaFallsImg from "@/assets/destinations/victoria-falls-real.jpg";
-import dianiBeachImg from "@/assets/destinations/diani-real.jpg";
-import samburuImg from "@/assets/destinations/samburu-reserve.jpg";
-import lakeVictoriaImg from "@/assets/destinations/lake-victoria.jpg";
-import nileRiverImg from "@/assets/destinations/nile-river.jpg";
-import lamuIslandImg from "@/assets/destinations/lamu-island.jpg";
-import kilimanjaroImg from "@/assets/destinations/kilimanjaro.jpg";
-import volcanoesRwandaImg from "@/assets/destinations/volcanoes-rwanda.jpg";
-import simienMountainsImg from "@/assets/destinations/simien-mountains.jpg";
-import lakeNakuruImg from "@/assets/destinations/maasai-mara-wildlife.jpg";
-import tsavoImg from "@/assets/gallery/elephants-real.jpg";
-import hellsGateImg from "@/assets/destinations/mount-kenya-authentic.jpg";
-
-// Map destination titles to authentic African wildlife images
+// Map destination titles to image paths
 const destinationImages: Record<string, string> = {
-  "Maasai Mara National Reserve": maasaiMaraImg,
-  "Serengeti National Park": serengetiImg,
-  "Mount Kenya National Park": mountKenyaImg,
-  "Mount Kenya": mountKenyaImg,
-  "Nairobi City": nairobiImg,
-  "Zanzibar Archipelago": zanzibarImg,
-  "Bwindi Impenetrable Forest": bwindiImg,
-  "Amboseli National Park": amboseliImg,
-  "Victoria Falls": victoriaFallsImg,
-  "Diani Beach": dianiBeachImg,
-  "Samburu National Reserve": samburuImg,
-  "Lake Victoria": lakeVictoriaImg,
-  "River Nile": nileRiverImg,
-  "Lamu Island": lamuIslandImg,
-  "Mount Kilimanjaro": kilimanjaroImg,
-  "Volcanoes National Park": volcanoesRwandaImg,
-  "Simien Mountains": simienMountainsImg,
-  "Lake Nakuru National Park": lakeNakuruImg,
-  "Tsavo National Parks": tsavoImg,
-  "Hell's Gate National Park": hellsGateImg,
+  "Maasai Mara National Reserve": "/images/destinations/maasai-mara-real.jpg",
+  "Serengeti National Park": "/images/destinations/serengeti-real.jpg",
+  "Mount Kenya National Park": "/images/destinations/mount-kenya-real.jpg",
+  "Mount Kenya": "/images/destinations/mount-kenya-real.jpg",
+  "Nairobi City": "/images/destinations/nairobi-real.jpg",
+  "Zanzibar Archipelago": "/images/destinations/zanzibar-beach-real.jpg",
+  "Bwindi Impenetrable Forest": "/images/destinations/bwindi-forest.jpg",
+  "Amboseli National Park": "/images/destinations/amboseli-real.jpg",
+  "Victoria Falls": "/images/destinations/victoria-falls-real.jpg",
+  "Diani Beach": "/images/destinations/diani-real.jpg",
+  "Samburu National Reserve": "/images/destinations/samburu-reserve.jpg",
+  "Lake Victoria": "/images/destinations/lake-victoria.jpg",
+  "River Nile": "/images/destinations/nile-river.jpg",
+  "Lamu Island": "/images/destinations/lamu-island.jpg",
+  "Mount Kilimanjaro": "/images/destinations/kilimanjaro.jpg",
+  "Volcanoes National Park": "/images/destinations/volcanoes-rwanda.jpg",
+  "Simien Mountains": "/images/destinations/simien-mountains.jpg",
+  "Lake Nakuru National Park": "/images/destinations/maasai-mara-wildlife.jpg",
+  "Tsavo National Parks": "/images/gallery/elephants-real.jpg",
+  "Hell's Gate National Park": "/images/destinations/mount-kenya-authentic.jpg",
 };
 
 const Destinations = () => {
@@ -120,7 +99,7 @@ const Destinations = () => {
                   title={dest.title}
                   country={dest.country}
                   region={dest.region}
-                  imageUrl={destinationImages[dest.title] || maasaiMaraImg}
+                  imageUrl={destinationImages[dest.title] || "/images/destinations/maasai-mara-real.jpg"}
                   description={dest.description}
                 />
               ))}
