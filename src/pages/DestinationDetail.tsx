@@ -9,54 +9,76 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, ArrowLeft, Loader2 } from "lucide-react";
 import PackageCard from "@/components/PackageCard";
 import PackageCardSkeleton from "@/components/ui/PackageCardSkeleton";
+import maasaiMaraReal from "@/assets/destinations/maasai-mara-real.jpg";
+import serengetiReal from "@/assets/destinations/serengeti-real.jpg";
+import mountKenyaReal from "@/assets/destinations/mount-kenya-real.jpg";
+import nairobiReal from "@/assets/destinations/nairobi-real.jpg";
+import zanzibarBeachReal from "@/assets/destinations/zanzibar-beach-real.jpg";
+import bwindiForest from "@/assets/destinations/bwindi-forest.jpg";
+import amboseliReal from "@/assets/destinations/amboseli-real.jpg";
+import victoriaFallsReal from "@/assets/destinations/victoria-falls-real.jpg";
+import dianiReal from "@/assets/destinations/diani-real.jpg";
+import maasaiMaraWildlife from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import maasaiMaraAuthentic from "@/assets/destinations/maasai-mara-authentic.jpg";
+import elephantsReal from "@/assets/gallery/elephants-real.jpg";
+import lionKenyaReal from "@/assets/gallery/lion-kenya-real.jpg";
+import giraffesSunset from "@/assets/gallery/giraffes-sunset.jpg";
+import serengetiLandscape from "@/assets/destinations/serengeti-landscape.jpg";
+import mountKenyaAuthentic from "@/assets/destinations/mount-kenya-authentic.jpg";
+import nairobiCity from "@/assets/destinations/nairobi-city.jpg";
+import zanzibarAuthentic from "@/assets/destinations/zanzibar-authentic.jpg";
+import bwindiAuthentic from "@/assets/destinations/bwindi-authentic.jpg";
+import amboseliElephants from "@/assets/destinations/amboseli-elephants.jpg";
+import victoriaFallsView from "@/assets/destinations/victoria-falls-view.jpg";
+import dianiBeach from "@/assets/destinations/diani-beach.jpg";
 
 const destinationImages: Record<string, string> = {
-  "Maasai Mara National Reserve": "/images/destinations/maasai-mara-real.jpg",
-  "Serengeti National Park": "/images/destinations/serengeti-real.jpg",
-  "Mount Kenya National Park": "/images/destinations/mount-kenya-real.jpg",
-  "Mount Kenya": "/images/destinations/mount-kenya-real.jpg",
-  "Nairobi City": "/images/destinations/nairobi-real.jpg",
-  "Zanzibar Archipelago": "/images/destinations/zanzibar-beach-real.jpg",
-  "Bwindi Impenetrable Forest": "/images/destinations/bwindi-forest.jpg",
-  "Amboseli National Park": "/images/destinations/amboseli-real.jpg",
-  "Victoria Falls": "/images/destinations/victoria-falls-real.jpg",
-  "Diani Beach": "/images/destinations/diani-real.jpg",
+  "Maasai Mara National Reserve": maasaiMaraReal,
+  "Serengeti National Park": serengetiReal,
+  "Mount Kenya National Park": mountKenyaReal,
+  "Mount Kenya": mountKenyaReal,
+  "Nairobi City": nairobiReal,
+  "Zanzibar Archipelago": zanzibarBeachReal,
+  "Bwindi Impenetrable Forest": bwindiForest,
+  "Amboseli National Park": amboseliReal,
+  "Victoria Falls": victoriaFallsReal,
+  "Diani Beach": dianiReal,
 };
 
 const destinationGalleryImages: Record<string, { src: string; alt: string }[]> = {
   "Maasai Mara National Reserve": [
-    { src: "/images/destinations/maasai-mara-wildlife.jpg", alt: "Maasai Mara Wildlife" },
-    { src: "/images/destinations/maasai-mara-authentic.jpg", alt: "Maasai Mara Plains" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "African Elephants" },
-    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions" },
-    { src: "/images/gallery/giraffes-sunset.jpg", alt: "Giraffes at Sunset" },
+    { src: maasaiMaraWildlife, alt: "Maasai Mara Wildlife" },
+    { src: maasaiMaraAuthentic, alt: "Maasai Mara Plains" },
+    { src: elephantsReal, alt: "African Elephants" },
+    { src: lionKenyaReal, alt: "Lions" },
+    { src: giraffesSunset, alt: "Giraffes at Sunset" },
   ],
   "Serengeti National Park": [
-    { src: "/images/destinations/serengeti-landscape.jpg", alt: "Serengeti Plains" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "Elephants" },
-    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions in Serengeti" },
+    { src: serengetiLandscape, alt: "Serengeti Plains" },
+    { src: elephantsReal, alt: "Elephants" },
+    { src: lionKenyaReal, alt: "Lions in Serengeti" },
   ],
   "Mount Kenya National Park": [
-    { src: "/images/destinations/mount-kenya-authentic.jpg", alt: "Mount Kenya Peak" },
+    { src: mountKenyaAuthentic, alt: "Mount Kenya Peak" },
   ],
   "Nairobi City": [
-    { src: "/images/destinations/nairobi-city.jpg", alt: "Nairobi Skyline" },
+    { src: nairobiCity, alt: "Nairobi Skyline" },
   ],
   "Zanzibar Archipelago": [
-    { src: "/images/destinations/zanzibar-authentic.jpg", alt: "Stone Town" },
+    { src: zanzibarAuthentic, alt: "Stone Town" },
   ],
   "Bwindi Impenetrable Forest": [
-    { src: "/images/destinations/bwindi-authentic.jpg", alt: "Bwindi Forest Interior" },
+    { src: bwindiAuthentic, alt: "Bwindi Forest Interior" },
   ],
   "Amboseli National Park": [
-    { src: "/images/destinations/amboseli-elephants.jpg", alt: "Amboseli Elephants" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "Elephant Herds" },
+    { src: amboseliElephants, alt: "Amboseli Elephants" },
+    { src: elephantsReal, alt: "Elephant Herds" },
   ],
   "Victoria Falls": [
-    { src: "/images/destinations/victoria-falls-view.jpg", alt: "Victoria Falls View" },
+    { src: victoriaFallsView, alt: "Victoria Falls View" },
   ],
   "Diani Beach": [
-    { src: "/images/destinations/diani-beach.jpg", alt: "Diani Beach Coast" },
+    { src: dianiBeach, alt: "Diani Beach Coast" },
   ],
 };
 

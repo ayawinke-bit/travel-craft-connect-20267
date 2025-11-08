@@ -8,45 +8,61 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, Clock, Users, MapPin, Check, Star, Loader2, ArrowLeft } from "lucide-react";
+import maasaiMaraReal from "@/assets/destinations/maasai-mara-real.jpg";
+import serengetiReal from "@/assets/destinations/serengeti-real.jpg";
+import mountKenyaReal from "@/assets/destinations/mount-kenya-real.jpg";
+import zanzibarBeachReal from "@/assets/destinations/zanzibar-beach-real.jpg";
+import amboseliReal from "@/assets/destinations/amboseli-real.jpg";
+import bwindiForest from "@/assets/destinations/bwindi-forest.jpg";
+import maasaiMaraWildlife from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import maasaiMaraAuthentic from "@/assets/destinations/maasai-mara-authentic.jpg";
+import elephantsReal from "@/assets/gallery/elephants-real.jpg";
+import lionKenyaReal from "@/assets/gallery/lion-kenya-real.jpg";
+import giraffesSunset from "@/assets/gallery/giraffes-sunset.jpg";
+import serengetiLandscape from "@/assets/destinations/serengeti-landscape.jpg";
+import mountKenyaAuthentic from "@/assets/destinations/mount-kenya-authentic.jpg";
+import zanzibarAuthentic from "@/assets/destinations/zanzibar-authentic.jpg";
+import amboseliElephants from "@/assets/destinations/amboseli-elephants.jpg";
+import bwindiAuthentic from "@/assets/destinations/bwindi-authentic.jpg";
 
 // Map package image identifiers to paths and gallery images
 const packageImages: Record<string, string> = {
-  "maasai-mara": "/images/destinations/maasai-mara-real.jpg",
-  "serengeti": "/images/destinations/serengeti-real.jpg",
-  "mount-kenya": "/images/destinations/mount-kenya-real.jpg",
-  "zanzibar": "/images/destinations/zanzibar-beach-real.jpg",
-  "amboseli": "/images/destinations/amboseli-real.jpg",
-  "bwindi": "/images/destinations/bwindi-forest.jpg",
+  "maasai-mara": maasaiMaraReal,
+  "serengeti": serengetiReal,
+  "mount-kenya": mountKenyaReal,
+  "zanzibar": zanzibarBeachReal,
+  "amboseli": amboseliReal,
+  "bwindi": bwindiForest,
 };
 
 const packageGalleryImages: Record<string, { src: string; alt: string }[]> = {
   "maasai-mara": [
-    { src: "/images/destinations/maasai-mara-wildlife.jpg", alt: "Maasai Mara Wildlife" },
-    { src: "/images/destinations/maasai-mara-authentic.jpg", alt: "Maasai Mara Landscape" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "African Elephants" },
-    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions in the Wild" },
-    { src: "/images/gallery/giraffes-sunset.jpg", alt: "Giraffes at Sunset" },
+    { src: maasaiMaraWildlife, alt: "Maasai Mara Wildlife" },
+    { src: maasaiMaraAuthentic, alt: "Maasai Mara Landscape" },
+    { src: elephantsReal, alt: "African Elephants" },
+    { src: lionKenyaReal, alt: "Lions in the Wild" },
+    { src: giraffesSunset, alt: "Giraffes at Sunset" },
   ],
   "serengeti": [
-    { src: "/images/destinations/serengeti-landscape.jpg", alt: "Serengeti Plains" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "African Elephants" },
-    { src: "/images/gallery/lion-kenya-real.jpg", alt: "Lions in the Wild" },
-    { src: "/images/gallery/giraffes-sunset.jpg", alt: "Giraffes at Sunset" },
+    { src: serengetiLandscape, alt: "Serengeti Plains" },
+    { src: elephantsReal, alt: "African Elephants" },
+    { src: lionKenyaReal, alt: "Lions in the Wild" },
+    { src: giraffesSunset, alt: "Giraffes at Sunset" },
   ],
   "mount-kenya": [
-    { src: "/images/destinations/mount-kenya-authentic.jpg", alt: "Mount Kenya Peak" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "Mountain Wildlife" },
+    { src: mountKenyaAuthentic, alt: "Mount Kenya Peak" },
+    { src: elephantsReal, alt: "Mountain Wildlife" },
   ],
   "zanzibar": [
-    { src: "/images/destinations/zanzibar-authentic.jpg", alt: "Zanzibar Old Town" },
+    { src: zanzibarAuthentic, alt: "Zanzibar Old Town" },
   ],
   "amboseli": [
-    { src: "/images/destinations/amboseli-elephants.jpg", alt: "Amboseli Elephants" },
-    { src: "/images/gallery/elephants-real.jpg", alt: "Elephant Herds" },
-    { src: "/images/gallery/giraffes-sunset.jpg", alt: "Safari Views" },
+    { src: amboseliElephants, alt: "Amboseli Elephants" },
+    { src: elephantsReal, alt: "Elephant Herds" },
+    { src: giraffesSunset, alt: "Safari Views" },
   ],
   "bwindi": [
-    { src: "/images/destinations/bwindi-authentic.jpg", alt: "Bwindi Forest Interior" },
+    { src: bwindiAuthentic, alt: "Bwindi Forest Interior" },
   ],
 };
 

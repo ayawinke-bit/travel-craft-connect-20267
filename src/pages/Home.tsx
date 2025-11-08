@@ -16,39 +16,58 @@ import TravelRequirements from "@/components/TravelRequirements";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, MapPin, Shield, Award, Headphones } from "lucide-react";
+import heroSafari from "@/assets/hero-safari.jpg";
+
+import maasaiMaraReal from "@/assets/destinations/maasai-mara-real.jpg";
+import serengetiReal from "@/assets/destinations/serengeti-real.jpg";
+import mountKenyaReal from "@/assets/destinations/mount-kenya-real.jpg";
+import nairobiReal from "@/assets/destinations/nairobi-real.jpg";
+import zanzibarBeachReal from "@/assets/destinations/zanzibar-beach-real.jpg";
+import bwindiForest from "@/assets/destinations/bwindi-forest.jpg";
+import amboseliReal from "@/assets/destinations/amboseli-real.jpg";
+import victoriaFallsReal from "@/assets/destinations/victoria-falls-real.jpg";
+import dianiReal from "@/assets/destinations/diani-real.jpg";
+import samburuReserve from "@/assets/destinations/samburu-reserve.jpg";
+import lakeVictoria from "@/assets/destinations/lake-victoria.jpg";
+import kilimanjaro from "@/assets/destinations/kilimanjaro.jpg";
+import volcanoes from "@/assets/destinations/volcanoes-rwanda.jpg";
+import simienMountains from "@/assets/destinations/simien-mountains.jpg";
+import maasaiMaraWildlife from "@/assets/destinations/maasai-mara-wildlife.jpg";
+import elephantsReal from "@/assets/gallery/elephants-real.jpg";
+import mountKenyaAuthentic from "@/assets/destinations/mount-kenya-authentic.jpg";
 
 // Map destination titles to image paths
 const destinationImages: Record<string, string> = {
-  "Maasai Mara National Reserve": "/images/destinations/maasai-mara-real.jpg",
-  "Serengeti National Park": "/images/destinations/serengeti-real.jpg",
-  "Mount Kenya National Park": "/images/destinations/mount-kenya-real.jpg",
-  "Mount Kenya": "/images/destinations/mount-kenya-real.jpg",
-  "Nairobi City": "/images/destinations/nairobi-real.jpg",
-  "Zanzibar Archipelago": "/images/destinations/zanzibar-beach-real.jpg",
-  "Bwindi Impenetrable Forest": "/images/destinations/bwindi-forest.jpg",
-  "Amboseli National Park": "/images/destinations/amboseli-real.jpg",
-  "Victoria Falls": "/images/destinations/victoria-falls-real.jpg",
-  "Diani Beach": "/images/destinations/diani-real.jpg",
-  "Samburu National Reserve": "/images/destinations/samburu-reserve.jpg",
-  "Lake Victoria": "/images/destinations/lake-victoria.jpg",
-  "Mount Kilimanjaro": "/images/destinations/kilimanjaro.jpg",
-  "Volcanoes National Park": "/images/destinations/volcanoes-rwanda.jpg",
-  "Simien Mountains": "/images/destinations/simien-mountains.jpg",
-  "Lake Nakuru National Park": "/images/destinations/maasai-mara-wildlife.jpg",
-  "Tsavo National Parks": "/images/gallery/elephants-real.jpg",
-  "Hell's Gate National Park": "/images/destinations/mount-kenya-authentic.jpg",
+  "Maasai Mara National Reserve": maasaiMaraReal,
+  "Serengeti National Park": serengetiReal,
+  "Mount Kenya National Park": mountKenyaReal,
+  "Mount Kenya": mountKenyaReal,
+  "Nairobi City": nairobiReal,
+  "Zanzibar Archipelago": zanzibarBeachReal,
+  "Bwindi Impenetrable Forest": bwindiForest,
+  "Amboseli National Park": amboseliReal,
+  "Victoria Falls": victoriaFallsReal,
+  "Diani Beach": dianiReal,
+  "Samburu National Reserve": samburuReserve,
+  "Lake Victoria": lakeVictoria,
+  "Mount Kilimanjaro": kilimanjaro,
+  "Volcanoes National Park": volcanoes,
+  "Simien Mountains": simienMountains,
+  "Lake Nakuru National Park": maasaiMaraWildlife,
+  "Tsavo National Parks": elephantsReal,
+  "Hell's Gate National Park": mountKenyaAuthentic,
 };
 
 // Map package image URLs to paths
 const packageImages: Record<string, string> = {
-  "maasai-mara": "/images/destinations/maasai-mara-real.jpg",
-  "serengeti": "/images/destinations/serengeti-real.jpg",
-  "mount-kenya": "/images/destinations/mount-kenya-real.jpg",
-  "zanzibar": "/images/destinations/zanzibar-beach-real.jpg",
-  "amboseli": "/images/destinations/amboseli-real.jpg",
-  "bwindi": "/images/destinations/bwindi-forest.jpg",
-  "victoria-falls": "/images/destinations/victoria-falls-real.jpg",
-  "diani": "/images/destinations/diani-real.jpg",
+  "maasai-mara": maasaiMaraReal,
+  "serengeti": serengetiReal,
+  "mount-kenya": mountKenyaReal,
+  "zanzibar": zanzibarBeachReal,
+  "amboseli": amboseliReal,
+  "bwindi": bwindiForest,
+  "victoria-falls": victoriaFallsReal,
+  "diani": dianiReal,
 };
 
 const Home = () => {
@@ -89,7 +108,7 @@ const Home = () => {
       <section className="relative h-[70vh] sm:h-[80vh] md:h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/images/hero-safari.jpg"
+            src={heroSafari}
             alt="Safari Kenya Hero"
             loading="eager"
             className="w-full h-full object-cover"
